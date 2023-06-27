@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>FSE Chatroom</title>
+  </head>
+  <body>
+    <h1>Register for the FSE Chatroom</h1>
+    <form action="/register" method="POST">
+        <label>Username
+            <input type="text" name="Username" value="<%= locals.Username %>"
+          </label>
+        <label>Password
+            <input type="password" name="Password" value="<%= locals.Password %>"
+        </label>
+        <button type="login">Login</button>
+    </form>
+  </body>
+</html>

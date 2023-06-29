@@ -1,12 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/user');
 var userController = require('../controllers/userController')
 
 
 router
   .route('/')
-  .get(function(req, res, next) {
+  .get(function(req, res) {
       res.render('index');
   })
 
@@ -17,7 +16,7 @@ router
 
 router
   .route('/register')
-  .get(function(req,res) {
+  .get(function(req, res) {
     res.render('register')
   })
   .post(validateUserInput, userController.register)
@@ -25,8 +24,6 @@ router
 router
 .route('/chatroom')
 .get(function(req, res) {
-  // Check that the user is authenticated...
-  // If authenticated:
   res.render('chatroom')
 });
 

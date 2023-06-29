@@ -34,10 +34,9 @@ class UserController {
             } else {
                 // Create new user instance
                 let newUser = new User(username, password);
-
-                // Here call the method to add user to the db
-                let temp = await newUser.createUser();
-                console.log(temp)
+                
+                // Add new user to db
+                
                 // Redirect to chatroom only when the user is successfully registered
                 res.redirect('/chatroom');
             }
@@ -49,68 +48,3 @@ class UserController {
 }
 
 module.exports = UserController;
-
-// // Create a new user
-// exports.createUser = async (req, res) => {
-//     // Get the details from the request body
-//     const { username, password } = req.body;
-
-//     try {
-//         // Create a new user
-//         const newUser = await User.createNewUser(username, password);
-
-//         // Set the user details in session
-//         req.session.user = {
-//             id: newUser.id,
-//             username: newUser.username
-//         };
-
-//         // Redirect to the chatroom
-//         res.redirect('/chatroom');
-//     } catch (error) {
-//         // Handle error
-//         console.log(error);
-//         res.redirect('/register');
-//     }
-// };
-
-// // Validate an existing user
-// exports.loginUser = async (req, res) => {
-//     // Get the details from the request body
-//     const { username, password } = req.body;
-
-//     try {
-//         // Validate the user
-//         const validUser = await User.validateUser(username, password);
-
-//         if(validUser) {
-//             // Set the user details in session
-//             req.session.user = {
-//                 id: validUser.id,
-//                 username: validUser.username
-//             };
-
-//             // Redirect to the chatroom
-//             res.redirect('/chatroom');
-//         } else {
-//             res.redirect('/login');
-//         }
-//     } catch (error) {
-//         // Handle error
-//         console.log(error);
-//         res.redirect('/login');
-//     }
-// };
-
-// // Logout the user
-// exports.logoutUser = (req, res) => {
-//     // Clear the session
-//     req.session.destroy((err) => {
-//         if(err) {
-//             // Handle error
-//             console.log(err);
-//         }
-//         // Redirect to the login page
-//         res.redirect('/login');
-//     });
-// };

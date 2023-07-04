@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var userController = require('../controllers/userController')
 
-
 router
   .route('/')
   .get(function(req, res) {
@@ -21,11 +20,6 @@ router
   })
   .post(validateUserInput, userController.register)
 
-router
-.route('/chatroom')
-.get(function(req, res) {
-  res.render('chatroom')
-});
 
 function validateUserInput(req, res, next) {
   let username = req.body.Username

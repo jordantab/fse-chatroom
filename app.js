@@ -1,15 +1,26 @@
+require('dotenv').config()
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
+// routes
+var chatsRouter = require('./routes/chats');
 var usersRouter = require('./routes/users');
 
+// socket.io setup
 var app = express();
-const { Server } = require("socket.io");
 let io;
+
+// mongodb setup
+const mongoose = require('mongoose')
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true})
+const db = mongoose.connection
+db.on('error', (error) => console.error(error))
+db.once('open', () => console.log('Connected to database'))
+
+const messageController = require('./controllers/messageController')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -22,13 +33,27 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', usersRouter);
+app.use('/chatroom', chatsRouter)
 
 // Initialize io
 app.set('socketio', (ioInstance) => {
   io = ioInstance;
 
   io.on('connection', (socket) => {
-    console.log('New user connected');
+    console.log('New user connected')
+
+    // Listen for a chat message
+    socket.on('chat message', async (msg) => {
+      // Save message to the db
+    await messageController.saveMessage(msg)
+    .then((savedMessage) => {
+      io.emit('new message', savedMessage)
+    })
+    .catch((err) => {
+      console.log('An error occured:', err)
+    })
+
+    })
   
     socket.on('disconnect', () => {
         console.log('User disconnected');

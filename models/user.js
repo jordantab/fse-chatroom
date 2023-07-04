@@ -1,26 +1,37 @@
-class User {
-    constructor(username, password) {
-      this.username = username;
-      this.password = password;
-    }
-  
-    // Method to create a new user in the db
-    async createUser() {
+const mongoose = require('mongoose')
+const bcrypt = require('bcryptjs')
 
-      // Add new user to db
-      return ('user created')
-    }
-
-    // Method to find a user by username
-  static async findByUsername(username) {
-    // return null
-    return new User(username,'123')
+const UserSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true
   }
+})
 
-  // Method to check if the provided password matches the stored password
-  async checkPassword(inputPassword) {
-    return this.password === inputPassword;
-  }
+// Method to create a new user in the db
+UserSchema.methods.createUser = async function() {
+  const salt = await bcrypt.genSalt()
+  this.password = await bcrypt.hash(this.password, salt)
 
-  }
-  module.exports = User;
+  return this.save()
+}
+
+// Method to check if the provided password matches the stored password
+UserSchema.methods.checkPassword = async function(password) {
+  const validPassword = await bcrypt.compare(password, this.password)
+  return validPassword
+}
+
+// Method to find a user by username
+UserSchema.statics.findByUsername = function(username) {
+  return this.findOne({ username: username })
+}
+
+const User = mongoose.model('User', UserSchema)
+
+module.exports = User

@@ -1,12 +1,12 @@
 [
     {
       "username": "user1",
-      "message": "Hello there!",
+      "text": "Hello there!",
       "timestamp": "2023-06-28T09:30:00Z"
     },
     {
       "username": "user2",
-      "message": "Hi, user1!",
+      "text": "Hi, user1!",
       "timestamp": "2023-06-28T09:31:00Z"
     }
   ]

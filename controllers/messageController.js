@@ -4,10 +4,8 @@ const Message = require('../models/message')
 class messageController {
     static async getAllMessages() {
         try {
-            console.log(2)
             // Get all existing messages from the db
             const messages = await Message.getAll()
-            
             return messages
 
         } catch (err) {
@@ -22,7 +20,6 @@ class messageController {
                 text: msg.text,
                 timestamp: msg.timestamp,
             })
-
             // Save new message to db
             const savedMessage = await newMessage.saveMessage()
             console.log(`${msg.username} posted a new message at ${msg.timestamp}`)

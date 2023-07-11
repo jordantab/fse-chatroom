@@ -23,13 +23,17 @@ UserSchema.methods.createUser = async function() {
 
 // Method to check if the provided password matches the stored password
 UserSchema.methods.checkPassword = async function(password) {
-  const validPassword = await bcrypt.compare(password, this.password)
-  return validPassword
+  return await bcrypt.compare(password, this.password)
 }
 
 // Method to find a user by username
 UserSchema.statics.findByUsername = function(username) {
   return this.findOne({ username: username })
+}
+
+// Method to find a user by id
+UserSchema.statics.findById = function(id) {
+  return this.findOne({ _id: id })
 }
 
 const User = mongoose.model('User', UserSchema)

@@ -32,6 +32,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// passport.js setup
+const passport = require('passport')
+const initializePassport = require('./configs/passport')
+initializePassport(passport)
+
+// sessions setup
+const flash = require('express-flash')
+const session = require('express-session')
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+}))
+app.use(flash())
+app.use(passport.initialize())
+app.use(passport.session())
+
 app.use('/', usersRouter);
 app.use('/chatroom', chatsRouter)
 

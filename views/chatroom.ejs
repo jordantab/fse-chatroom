@@ -30,12 +30,10 @@
       $('#chatForm').submit(function(e) {
         e.preventDefault()
 
-        let currentDate = new Date()
-
         let messageData = {
           username: 'username',
           text: $('#message').val(),
-          timestamp: currentDate.toString()
+          timestamp: new Date()
         };
 
         // emits a 'chat message' event to the server with the value of the input field as data
@@ -50,7 +48,7 @@
       // Listen for a 'new message' event from the server
       socket.on('new message', function(message) {
         // Append the new message to the list
-        $('#messages').append($('<li>').text(message.username + ': ' + message.text + '  ' + message.timestamp))
+        $('#messages').append($('<li>').text(message.username + ': ' + message.text + '  ' + new Date(message.timestamp).toString()))
       })
 
     </script>

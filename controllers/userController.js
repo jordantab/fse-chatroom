@@ -1,34 +1,9 @@
 // Import User model
 const User = require('../models/user')
+const passport = require('passport')
 
 class userController {
-    static async login(req, res) {
-        try {
-            let username = req.body.Username
-            let password = req.body.Password
-
-            const user = await User.findByUsername(username)
-            
-            // If the user doesn't exist
-            if (!user) {
-                return res.send('<script>alert("This username does not exist. Please try again."); window.location.href="/";</script>');
-            }
-
-            // Check the user's password input
-            let checkPassword = await user.checkPassword(password)
-
-            // If correct password, redirect user to chatroom
-            if (checkPassword) {
-                res.redirect('/chatroom')
-            } else {
-                res.send('<script>alert("Password is incorrect. Please try again."); window.location.href="/";</script>');
-            }
-        } catch (err) {
-            res.status(500).json({ error: 'An error occurred while logging in' });
-        }
-    }
-
-    static async register(req, res) {
+    static async register(req, res, next) {
         try {
             let username = req.body.Username;
             let password = req.body.Password;
@@ -46,8 +21,9 @@ class userController {
                 await newUser.createUser();
                 console.log(`${username} created an account`)
 
-                // Redirect to chatroom when the user is successfully registered
-                res.redirect('/chatroom');
+                // // Redirect to chatroom when the user is successfully registered
+                // res.redirect('/chatroom');
+                next()
             }
 
         } catch (err) {

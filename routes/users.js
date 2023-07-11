@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var userController = require('../controllers/userController')
+const passport = require('passport')
 
 router
   .route('/')
@@ -11,15 +12,25 @@ router
 
 router
   .route('/login')
-  .post(validateUserInput, userController.login)
+  .post(validateUserInput,
+    passport.authenticate('local', {
+    successRedirect: '/chatroom',
+    failureRedirect: '/',
+    failureFlash: true
+}))
 
 router
   .route('/register')
   .get(function(req, res) {
     res.render('register')
   })
-  .post(validateUserInput, userController.register)
-
+  .post(validateUserInput,
+    userController.register,
+    passport.authenticate('local', {
+    successRedirect: '/chatroom',
+    failureRedirect: '/register',
+    failureFlash: true
+}))
 
 function validateUserInput(req, res, next) {
   let username = req.body.Username

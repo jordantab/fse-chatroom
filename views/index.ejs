@@ -6,6 +6,9 @@
   </head>
   <body>
     <h1>FSE Chatroom</h1>
+    <% if (messages.error) { %>
+      <%= messages.error %>
+      <% } %>
     <form action="/login" method="POST">
       <label>Username
         <input type="text" name="Username" value="<%= locals.Username %>"

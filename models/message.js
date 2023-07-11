@@ -11,13 +11,12 @@ const MessageSchema = new mongoose.Schema({
   },
   timestamp: {
     type: Date,
-    default: Date.now,
+    required: true,
   },
 })
 
 // Method to retrieve all existing messages from the db
 MessageSchema.statics.getAll = async function () {
-  console.log(5)
   return this.find({})
 }
 

@@ -72,7 +72,7 @@ app.set('socketio', (ioInstance) => {
     })
 
     })
-  
+    
     socket.on('disconnect', () => {
         console.log('User disconnected');
     });

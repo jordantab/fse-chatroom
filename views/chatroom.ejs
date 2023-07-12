@@ -8,12 +8,17 @@
   </head>
   <body>
     <h1>Welcome to the FSE Chatroom</h1>
-    <button>Logout</button>
+    <form action="/logout" method="POST">
+      <button type="submit">Logout</button>
+    </form>
     <ul id="messages">
       <% messages.forEach(function(message) { %>
         <li><%= message.username %>: <%= message.text%>  <%= message.timestamp%></li>
       <% }); %>
     </ul>
+    <script>
+      const username = '<%= user.username %>';
+    </script>
     <form id="chatForm">
       <input type="text" id="message" name="message" required>
       <button type="submit">Send</button>
@@ -31,7 +36,7 @@
         e.preventDefault()
 
         let messageData = {
-          username: 'username',
+          username: username,
           text: $('#message').val(),
           timestamp: new Date()
         };

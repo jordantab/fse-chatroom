@@ -24,13 +24,11 @@ router
   .get(function(req, res) {
     res.render('register')
   })
-  .post(validateUserInput,
-    userController.register,
-    passport.authenticate('local', {
-    successRedirect: '/chatroom',
-    failureRedirect: '/register',
-    failureFlash: true
-}))
+  .post(validateUserInput, userController.register)
+
+router
+.route('/logout')
+.post(userController.logout)
 
 function validateUserInput(req, res, next) {
   let username = req.body.Username

@@ -10,7 +10,7 @@ router
 .route('/')
 .get(async function(req, res) {
   const messages = await messageController.getAllMessages()
-  res.render('chatroom', { title: 'Chatroom', messages: messages });
+  res.render('chatroom', { title: 'Chatroom', user: req.user, messages: messages });
 });
 
 module.exports = router;

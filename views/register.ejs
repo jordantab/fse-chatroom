@@ -5,15 +5,24 @@
     <title>FSE Chatroom</title>
   </head>
   <body>
-    <h1>Register for the FSE Chatroom</h1>
-    <form action="/register" method="POST">
-        <label>Username
-            <input type="text" name="Username" value="<%= locals.Username %>"
-          </label>
-        <label>Password
-            <input type="password" name="Password" value="<%= locals.Password %>"
-        </label>
-        <button type="submit">Register</button>
-    </form>
+    <div class="grid">
+      <div class="title">
+        <h1>Registeration</h1>
+      </div>
+      <form action="/register" method="POST" class="inputs" id="register-form">
+        <label>Username</label>
+        <input type="text" name="Username" value="<%= locals.Username %>"/>
+        <label>Password</label>
+        <input type="password" name="Password" value="<%= locals.Password %>"/>
+      </form>
+      <div class="buttons-grid">
+        <button type="submit" form="login-form">
+          Back to Login
+        </button>
+        <button type="submit" form="register-form">Register</button>
+      </div>
+    </div>
+  </form>
+  <form action="/" method="GET" id="login-form"></form>
   </body>
 </html>

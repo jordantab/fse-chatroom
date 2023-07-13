@@ -18,7 +18,7 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next()
   } else { 
-    // Make the user login if not logged
+    // Make the user login if not logged in
     res.redirect('/')
   }
 }

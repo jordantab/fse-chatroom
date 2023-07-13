@@ -5,21 +5,37 @@
     <title>FSE Chatroom</title>
   </head>
   <body>
-    <h1>FSE Chatroom</h1>
     <% if (messages.error) { %>
       <%= messages.error %>
       <% } %>
-    <form action="/login" method="POST">
+    <div class="grid">
+      <div class="title">
+        <h1>FSE Chat Room</h1>
+      </div>
+      <form action="/login" method="POST" class="inputs" id="login-form">
+        <label>Username</label>
+        <input type="text" name="Username" value="<%= locals.Username %>"/>
+        <label>Password</label>
+        <input type="password" name="Password" value="<%= locals.Password %>"/>
+      </form>
+      <div class="buttons-grid">
+        <button type="submit" method="POST" form="login-form">
+          Login
+        </button>
+        <button type="submit" form="register-form">Register</button>
+      </div>
+      <form action="/register" method="GET" id="register-form">
+      </form>
+    </div>
+    <!-- <form action="/login" method="POST" id="login-form">
       <label>Username
         <input type="text" name="Username" value="<%= locals.Username %>"
       </label>
       <label>Password
         <input type="password" name="Password" value="<%= locals.Password %>"
       </label>
-      <button type="submit">Login</button>
     </form>
-    <form action="/register" method="GET">
-      <button type="submit">Register</button>
-    </form>
+    <button type="submit" id="login-form">Login</button> -->
+    
   </body>
 </html>

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/login.css' />
     <title>FSE Chatroom</title>
   </head>
   <body>
     <% if (messages.error) { %>
       <%= messages.error %>
       <% } %>
-    <div class="grid">
+    <div class="login-grid">
       <div class="title">
         <h1>FSE Chat Room</h1>
       </div>
@@ -27,15 +27,5 @@
       <form action="/register" method="GET" id="register-form">
       </form>
     </div>
-    <!-- <form action="/login" method="POST" id="login-form">
-      <label>Username
-        <input type="text" name="Username" value="<%= locals.Username %>"
-      </label>
-      <label>Password
-        <input type="password" name="Password" value="<%= locals.Password %>"
-      </label>
-    </form>
-    <button type="submit" id="login-form">Login</button> -->
-    
   </body>
 </html>

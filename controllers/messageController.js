@@ -6,7 +6,17 @@ class messageController {
         try {
             // Get all existing messages from the db
             const messages = await Message.getAll()
-            return messages
+
+            // Change the format of the timestamps
+            let formattedMessages = messages.map((msg) => {
+                let date = new Date(msg.timestamp)
+                return {
+                    ...msg,
+                    timestamp: date.toLocaleString()
+                }
+            })
+            
+            return formattedMessages
 
         } catch (err) {
             res.status(500).json({ error: 'An error occured while retrieving all of the messages'})

@@ -4,6 +4,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var favicon = require('serve-favicon');
 
 // routes
 var chatsRouter = require('./routes/chats');
@@ -12,6 +13,9 @@ var usersRouter = require('./routes/users');
 // socket.io setup
 var app = express();
 let io;
+
+// change favicon
+app.use(favicon(path.join(__dirname, 'public/images', 'favicon.ico')));
 
 // mongodb setup
 const mongoose = require('mongoose')
